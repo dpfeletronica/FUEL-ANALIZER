@@ -12,12 +12,15 @@
 #include <LiquidCrystal_I2C.h>
 //Inicializa o display no endereco 0x27
 LiquidCrystal_I2C lcd(0x27,16,4);
- 
+
 //int pin = 10;
 int analyzer=0, comb1=0;
 volatile int state = LOW;
 volatile int state1 = LOW;
-
+void analy()
+{
+analyzer++;
+} 
 void setup()
 {
 //pinMode(pin, OUTPUT);
@@ -59,15 +62,19 @@ void loop()
  lcd.print("ETHANOL= ");//escreve no lcd na posição acima
  if(comb1>2){
  lcd.print(comb1);//escreve no lcd na posição acima 
-lcd.print("%   ");//escreve no lcd na posição acima  
+lcd.print("%       ");//escreve no lcd na posição acima  
  }else{
   lcd.print("NO FUEL");//escreve no lcd na posição acima 
  }
+ if(comb1>100){
+  lcd.setCursor(4,2);//posiciona cursor na linha 1 coluna 2
+  lcd.print("ERROR");
+ }else{
+   lcd.setCursor(4,2);//posiciona cursor na linha 1 coluna 2
+ lcd.print("        ");
+}
 }
 
-void analy()
-{
-analyzer++;
-}
+
 
  
